@@ -57,7 +57,7 @@
 - **BG Color (`Ctrl+0` ... `Ctrl+7`)** — миттєва зміна фонового кольору робочої області (чорний, білий, сірі тони, кольорові шаблони) для оцінки прозорості.
 
 ### 🛠️ Меню «Tools»
-- **Open File (ImageMagick) (`Alt+Shift+O`)** — відкриття рідкісних та специфічних графічних форматів через рушій ImageMagick.
+- **Open File (ImageMagick) (`Alt+Shift+O`)** — відкриття рідкісних та специфічних графічних форматів через рушій ImageMagick. Ознайомитися з повним списком можна за посиланням: [ImageMagick - Supported Image Formats](https://imagemagick.org/formats).
 - **Folder Rescale (ImageMagick) (`Alt+Shift+P`)** — пакетне масштабування та конвертація всіх зображень у каталозі.
 - **Images Folder As Video (FFMpeg) (`Alt+I`)** — рендеринг відеогалерей та слайдшоу з переходів між фотографіями.
 - **Video As Images (FFMpeg) (`Alt+Shift+I`)** — розбивка відео на кадри або витяг стоп-кадрів.
