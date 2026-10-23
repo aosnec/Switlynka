@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switlynka (Світлинка) — Швидка довідка та можливості програми</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-hover: rgba(51, 65, 85, 0.85);
+            --border-color: rgba(148, 163, 184, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-blue: #38bdf8;
+            --accent-blue-glow: rgba(56, 189, 248, 0.25);
+            --accent-indigo: #6366f1;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-cyan: #06b6d4;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0) 100%);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .badge-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .badge.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .badge.amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-amber);
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .badge.indigo {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-indigo);
+            border-color: rgba(99, 102, 241, 0.25);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .nav-pills {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .nav-pill {
+            padding: 8px 18px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(56, 189, 248, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px var(--accent-blue-glow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            flex-shrink: 0;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .card.amber .card-icon {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-amber);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .card.green .card-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .card.indigo .card-icon {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-indigo);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .card.rose .card-icon {
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent-rose);
+            border-color: rgba(244, 63, 94, 0.2);
+        }
+
+        .card.cyan .card-icon {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .card-body {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+
+        .card-body ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .card-body li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+        }
+
+        .card-body li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .shortcut-badge {
+            display: inline-block;
+            background: rgba(148, 163, 184, 0.15);
+            color: #e2e8f0;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 6px;
+            padding: 2px 7px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+            margin: 0 2px;
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(15, 23, 42, 0.85);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.3);
+            color: #ffffff;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .feature-box-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 8px;
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent-blue);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .telegram-box {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: #f8fafc;
+        }
+
+        .telegram-box img {
+            max-height: 256px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .grid-cards { grid-template-columns: 1fr; }
+            .container { padding: 20px 14px; }
+            td, th { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="badge-bar">
+            <span class="badge">C++17</span>
+            <span class="badge green">wxWidgets 3.2+</span>
+            <span class="badge amber">Poppler & Ghostscript</span>
+            <span class="badge indigo">ImageMagick 7 & FFmpeg</span>
+            <span class="badge">Windows & Linux</span>
+        </div>
+        <h1><div><img src="data:image/png;base64,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" alt="logo_switlynka_logo.txt" /></div> Switlynka (Світлинка)</h1>
+        <p class="subtitle">Швидкий, легкий і багатофункціональний переглядач графічних файлів, документів PDF, векторних макетів, відеокадрів та гігапіксельних мап місцевості з відкритим кодом.</p>
+        
+        <div class="nav-pills">
+            <a href="#new-features" class="nav-pill">✨ Нові можливості</a>
+            <a href="#pdf-support" class="nav-pill">📄 Документи PDF</a>
+            <a href="#vector" class="nav-pill">📐 Векторний рушій</a>
+            <a href="#viewing" class="nav-pill">🔍 Перегляд та зум</a>
+            <a href="#crop" class="nav-pill">✂️ Кадрування Krita</a>
+            <a href="#video" class="nav-pill">🎬 Відео та FFmpeg</a>
+            <a href="#shortcuts" class="nav-pill">⌨️ Гарячі клавіші</a>
+            <a href="#system" class="nav-pill">⚙️ Системні утиліти</a>
+        </div>
+    </header>
+
+    <!-- Нові можливості -->
+    <section id="new-features">
+        <div class="section-header">
+            <span class="section-icon">✨</span>
+            <h2 class="section-title">Головні нововведення останньої версії</h2>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card cyan">
+                <div class="card-header">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title">Повна підтримка PDF та OpenPDFDialog</div>
+                </div>
+                <div class="card-body">
+                    Інтеграція селектора сторінок та рендерингу високої чіткості:
+                    <ul>
+                        <li>Інтерактивне вікно <strong>OpenPDFDialog</strong> із прев'ю у вигляді білого паперового аркуша з м'якою тінню (Drop Shadow).</li>
+                        <li>Миттєве визначення сторінок (Poppler `pdfinfo`, нативний C++ парсер у пам'яті за 0 мс) із діапазоном <code>1 .. totalPages</code>.</li>
+                        <li>Вибір роздільної здатності растеризації <code>spinResolutionCtrl</code> (від 36 до 2400 DPI, за замовчуванням 300 DPI) для формування повнорозмірного майстер-растру (2480×3508 px при 300 DPI).</li>
+                        <li>Подвійна буферизація та відсутність мерехтіння при гортанні сторінок.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Гортання PDF у вікні (Ctrl + Стрілки)</div>
+                </div>
+                <div class="card-body">
+                    Пряма клавіатурна навігація сторінками:
+                    <ul>
+                        <li><span class="shortcut-badge">Ctrl + Left</span> / <span class="shortcut-badge">Page Up</span> — попередня сторінка відкритого документа.</li>
+                        <li><span class="shortcut-badge">Ctrl + Right</span> / <span class="shortcut-badge">Page Down</span> — наступна сторінка відкритого документа.</li>
+                        <li>Миттєве перерендерення в обраному DPI без повторного відкриття діалогу.</li>
+                        <li>Синхронне оновлення таблиці властивостей і рядка стану (<code>PDF: сторінка X з Y (DPI: 300)</code>).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="card-header">
+                    <div class="card-icon">💾</div>
+                    <div class="card-title">Розумний перезапис та збереження DPI</div>
+                </div>
+                <div class="card-body">
+                    Збереження 100% чіткості растру:
+                    <ul>
+                        <li>Пряме збереження майстер-растру при «Save File As...» без зворотного стискання у номінальні 72 DPI.</li>
+                        <li>Команда «File overwrite» для PDF автоматично експортує повнорозмірний PNG у тій самій теці.</li>
+                        <li>Автоматичне сканування каталогу (<code>ScanFolder</code>) — новий PNG миттєво з'являється у списку теки.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card amber">
+                <div class="card-header">
+                    <div class="card-icon">🖼️</div>
+                    <div class="card-title">Безпечні мініатюри PDF у списку теки</div>
+                </div>
+                <div class="card-body">
+                    Потокобезпечна побудова прев'ю без помилок:
+                    <ul>
+                        <li>Системна функція <code>RunHiddenProcessSync</code> на базі Win32 <code>CreateProcessW</code> без виклику черги wxWidgets.</li>
+                        <li>Повна ліквідація фатальних помилок <code>wxThread::IsMain()</code> у фоновому потоці.</li>
+                        <li>Автоматична побудова мініатюри 1-ї сторінки для кожного PDF у теці через Poppler `pdftoppm`.</li>
+                        <li>Захисна графічна плитка — повна відсутність чорних квадратів.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card indigo">
+                <div class="card-header">
+                    <div class="card-icon">🧲</div>
+                    <div class="card-title">Drag-and-Drop без «замерзання» іконки</div>
+                </div>
+                <div class="card-body">
+                    Асинхронне завершення OLE Drop через <code>CallAfter</code>:
+                    <ul>
+                        <li>Метод <code>OnDropFiles</code> миттєво повертає <code>true</code> у підсистему OLE Windows за 0.001 мс.</li>
+                        <li>Провідник Windows негайно знімає та знищує напівпрозору системну іконку перетягування.</li>
+                        <li>Діалог вибору сторінки чи відео відкривається абсолютно чисто без залишкових слідів.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card rose">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <div class="card-title">Динамічний векторний рушій (EPS, AI, SVG)</div>
+                </div>
+                <div class="card-body">
+                    Векторна чіткість без пікселізації:
+                    <ul>
+                        <li>Повноцінна підтримка Encapsulated PostScript (.eps) та Adobe Illustrator (.ai).</li>
+                        <li>Динамічний перерахунок DPI при наближенні (Ctrl + Wheel) аж до 3200% через Tiered Mip Caching.</li>
+                        <li>Миттєве зчитування вбудованого TIFF-прев'ю DOS EPS за &lt; 1 мс.</li>
+                        <li>Конвеєр: Ghostscript <code>gswin64c</code>, Poppler <code>pdftoppm</code>, ImageMagick 7.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">✋</div>
+                    <div class="card-title">Інструмент «Рука» (Hand Tool)</div>
+                </div>
+                <div class="card-body">
+                    Плавне панорамування при великому зумі:
+                    <ul>
+                        <li>Активація утриманням клавіші <span class="shortcut-badge">Spacebar</span> у режимах 100% та Custom size.</li>
+                        <li>Курсор трансформується у долоню, переміщення відбувається затисканням ЛКМ.</li>
+                        <li>Апаратна синхронізація без ривків, затримок та шлейфів.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Зум під курсором (GIMP Style)</div>
+                </div>
+                <div class="card-body">
+                    Інтуїтивне масштабування полотна:
+                    <ul>
+                        <li>Масштабування через <span class="shortcut-badge">Ctrl + Wheel</span>.</li>
+                        <li>Точка під курсором миші залишається нерухомою на екрані при наближенні та віддаленні.</li>
+                        <li>Діапазон наближення від 5% (0.05x) до 3200% (32x).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card amber">
+                <div class="card-header">
+                    <div class="card-icon">🗺️</div>
+                    <div class="card-title">Надвеликі карти місцевості</div>
+                </div>
+                <div class="card-body">
+                    Підтримка гігапіксельних растрових масивів:
+                    <ul>
+                        <li>Перегляд карт понад 16000×16000 px у режимі 100% (1:1).</li>
+                        <li>Дисплейний плитковий рендеринг (Display-Space Tile Grid 512×512 px).</li>
+                        <li>Повне усунення ліміту пам'яті GDI DIB section (лише 12–16 МБ VRAM).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card indigo">
+                <div class="card-header">
+                    <div class="card-icon">✂️</div>
+                    <div class="card-title">Симетричне кадрування (Ctrl-Crop)</div>
+                </div>
+                <div class="card-body">
+                    Професійне трансформування рамки у стилі Krita:
+                    <ul>
+                        <li>Подвійний клік ЛКМ або <span class="shortcut-badge">Alt + A</span>.</li>
+                        <li>Утримання <span class="shortcut-badge">Ctrl</span> забезпечує дзеркальну симетрію від центру.</li>
+                        <li>Комбінація <span class="shortcut-badge">Shift + Ctrl</span> для симетричного пропорційного квадрата.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎬</div>
+                    <div class="card-title">Відеоплеєр і селектор кадрів</div>
+                </div>
+                <div class="card-body">
+                    Повноцінна інтеграція з FFmpeg:
+                    <ul>
+                        <li>Drag-and-Drop відео (MP4, MKV, MOV, AVI, WMV, MXF, TS, WebM).</li>
+                        <li>Зондування таймкоду та лічильник кадрів. Покадровий крок за реальним FPS відео.</li>
+                        <li>Калібрування Rec.709 16-235 у Full sRGB 0-255 та збереження альфа-каналу.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card cyan">
+                <div class="card-header">
+                    <div class="card-icon">🔍</div>
+                    <div class="card-title">Повна підтримка прозорості (Alpha)</div>
+                </div>
+                <div class="card-body">
+                    Чистий альфа-канал без білого тла:
+                    <ul>
+                        <li>Параметр <code>-background none png32:</code> у ImageMagick для векторних SVG, HEIC/HEIF, AVIF, WebP.</li>
+                        <li>Підтримка шарів Photoshop PSD/PSB, DDS, TIFF та XCF.</li>
+                        <li>Автоматична конвертація 1-бітних масок (GIF, ICO) у плавний 8-бітний альфа-канал.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Спеціальний розділ: Робота з PDF -->
+    <section id="pdf-support">
+        <div class="section-header">
+            <span class="section-icon">📄</span>
+            <h2 class="section-title">Робота з багатосторінковими документами PDF</h2>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-box-title">
+                <span>Діалогове вікно OpenPDFDialog та робочий процес</span>
+            </div>
+            <p>Програма «Світлинка» надає професійний інструментарій для відкриття, попереднього перегляду та растеризації окремих сторінок PDF-файлів будь-якої складності:</p>
+            <ul style="margin: 12px 0 0 20px; color: var(--text-secondary);">
+                <li><strong style="color: #fff;">Точки входу</strong>: відкриття через меню <em>File &rarr; Open File... (Ctrl+O)</em>, перетягування файлу мишею у вікно програми (Drag-and-Drop), запуск через командний рядок або подвійний клік на файл у панелі теки.</li>
+                <li><strong style="color: #fff;">Миттєве сканування сторінок</strong>: перед відкриттям вікна утиліта <code>pdfinfo</code> або нативний C++ аналізатор миттєво зчитують кількість сторінок та виставляють діапазон лічильника <code>Page Number: 1 .. N</code>.</li>
+                <li><strong style="color: #fff;">Живий попередній перегляд</strong>: при зміні сторінки стрілками спінера або введенні номера з клавіатури у панелі <code>Preview</code> за 15–25 мс рендериться мініатюра сторінки (72 DPI). Раніше переглянуті сторінки кешуються в пам'яті і відображаються миттєво (0.01 мс).</li>
+                <li><strong style="color: #fff;">Вибір роздільної здатності (DPI)</strong>: у полі <code>Resolution</code> користувач може вказати будь-яку щільність пікселів:
+                    <ul style="margin: 6px 0 6px 20px;">
+                        <li><strong>72 DPI</strong> — чорновий екранний перегляд (A4 ≈ 595×842 px).</li>
+                        <li><strong>150 DPI</strong> — читання електронних документів (A4 ≈ 1240×1754 px).</li>
+                        <li><strong>300 DPI (Стандарт)</strong> — поліграфічна якість для детального аналізу та друку (A4 ≈ 2480×3508 px).</li>
+                        <li><strong>600 DPI / 1200 DPI</strong> — надвисока чіткість для векторних креслень і карт (A4 ≈ 4960×7016 px).</li>
+                    </ul>
+                </li>
+                <li><strong style="color: #fff;">Клавіатурне гортання у переглядачі</strong>: після завантаження сторінки комбінації <span class="shortcut-badge">Ctrl + Left</span> та <span class="shortcut-badge">Ctrl + Right</span> (або <span class="shortcut-badge">Page Up / Down</span>) дозволяють перегортати сторінки безпосередньо на робочому полотні із збереженням обраної роздільної здатності.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Векторний рушій -->
+    <section id="vector">
+        <div class="section-header">
+            <span class="section-icon">📐</span>
+            <h2 class="section-title">Динамічний векторний рушій (SVG, EPS, AI, PDF)</h2>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-box-title">
+                <span>Математика векторного масштабування (Tiered Mip Caching)</span>
+            </div>
+            <p>На відміну від звичайних переглядачів, які один раз розтягують растрову картинку, «Світлинка» аналізує векторні структури в реальному часі:</p>
+            <ul style="margin: 12px 0 0 20px; color: var(--text-secondary);">
+                <li><strong style="color: #fff;">Динамічний перерахунок DPI</strong>: формула $\text{DPI} = \text{clamp}(72.0 \times \text{scale}, 72, 1200)$ автоматично підвищує щільність рендерингу при збільшенні масштабу користувачем.</li>
+                <li><strong style="color: #fff;">Квантизація та пам'ять 60 FPS</strong>: квантування на рівні 72, 108, 144, 216, 288, 432, 576, 864 DPI утримує готовий растр у пам'яті <code>m_vectorRenderCache</code>, завдяки чому панорамування Hand Tool та мікрозум працюють зі швидкістю понад 60 кадрів/сек без повторного виклику дисків.</li>
+                <li><strong style="color: #fff;">Ізоляція кадрування</strong>: при виконанні обрізки (Crop Area, маски F6/F7) викликається <code>ResetVectorState()</code>, що фіксує кадровий фрагмент як незалежний растр без скидання на загальний векторний файл.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Робота із зображеннями та режимами перегляду -->
+    <section id="viewing">
+        <div class="section-header">
+            <span class="section-icon">🔍</span>
+            <h2 class="section-title">Режими масштабування та перегляду</h2>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-box-title">
+                <span>Три режими роботи полотна (StatusBar / comboSizeImg)</span>
+            </div>
+            <p>У правому нижньому кутку статус-бару розташовано селектор режимів розміру зображення:</p>
+            <ul style="margin: 12px 0 0 20px; color: var(--text-secondary);">
+                <li><strong style="color: #fff;">Resizing (Fit to Window)</strong> — повна адаптація розміру кадру під поточні розміри вікна програми з плавним білінійним субпіксельним антиаліасингом.</li>
+                <li><strong style="color: #fff;">100% (Original100)</strong> — відображення в реальному вихідному масштабі 1:1 із центруванням та скролбарами. Для PDF-сторінок відображає дійсний піксельний розмір обраного DPI (наприклад 2480×3508 px при 300 DPI).</li>
+                <li><strong style="color: #fff;">Custom size</strong> — плавне збільшення та зменшення полотна від 5% до 3200%. Активується автоматично при обертанні коліщатка миші з клавішею Ctrl.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Інтерактивне кадрування -->
+    <section id="crop">
+        <div class="section-header">
+            <span class="section-icon">✂️</span>
+            <h2 class="section-title">Інструменти кадрування та масок</h2>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <div class="card-title">Crop Image Area (Krita Style)</div>
+                </div>
+                <div class="card-body">
+                    Активація через <strong>подвійний клік ЛКМ</strong> або пункт меню <em>Edit &rarr; Crop Image Area (Alt+A)</em>:
+                    <ul>
+                        <li>8 маркерів масштабування зі зміною курсора миші.</li>
+                        <li>Перетягування центральної області для вільного зсуву рамки.</li>
+                        <li><span class="shortcut-badge">Shift</span> — пропорційне збереження сторін (квадрат / співвідношення).</li>
+                        <li><span class="shortcut-badge">Ctrl</span> — дзеркальне симетричне кадрування сторін від центру.</li>
+                        <li><span class="shortcut-badge">Enter</span> — виконати обрізання / <span class="shortcut-badge">Esc</span> — скасувати режим.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card indigo">
+                <div class="card-header">
+                    <div class="card-icon">⭕</div>
+                    <div class="card-title">Геометричні маски F6 / F7</div>
+                </div>
+                <div class="card-body">
+                    Швидкі інструменти малювання виділень:
+                    <ul>
+                        <li><span class="shortcut-badge">F6</span> — Rectangle Mask (прямокутне або квадратне виділення).</li>
+                        <li><span class="shortcut-badge">F7</span> — Circle Mask (еліптичне або кругле виділення з прозорим фоном).</li>
+                        <li>Субпіксельний антиаліасинг країв кола на основі нормалізованої відстані.</li>
+                        <li>Скасування режиму через клавішу <span class="shortcut-badge">Esc</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Таблиця гарячих клавіш -->
+    <section id="shortcuts">
+        <div class="section-header">
+            <span class="section-icon">⌨️</span>
+            <h2 class="section-title">Повний довідник гарячих клавіш</h2>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 290px;">Клавіші</th>
+                        <th>Дія / Функція</th>
+                        <th style="width: 200px;">Розділ меню</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="shortcut-badge">Spacebar</span> + ЛКМ Drag</td>
+                        <td>Панорамування зображення рукою (<strong>Hand Tool</strong>) у 100% та Custom size</td>
+                        <td>Canvas Navigation</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl</span> + Коліщатко миші</td>
+                        <td>Плавне масштабування з фокусом під курсором (GIMP style, 5%..3200%)</td>
+                        <td>Canvas Zoom</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + Left</span> / <span class="shortcut-badge">Page Up</span></td>
+                        <td>Попередня сторінка відкритого документа PDF</td>
+                        <td>PDF Navigation</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + Right</span> / <span class="shortcut-badge">Page Down</span></td>
+                        <td>Наступна сторінка відкритого документа PDF</td>
+                        <td>PDF Navigation</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">&larr;</span> / <span class="shortcut-badge">&rarr;</span></td>
+                        <td>Попереднє / наступне зображення у поточній теці</td>
+                        <td>Folder Navigation</td>
+                    </tr>
+                    <tr>
+                        <td>Подвійний клік / <span class="shortcut-badge">Alt + A</span></td>
+                        <td>Інтерактивне кадрування Crop Area (Krita Style)</td>
+                        <td>Edit &rarr; Crop Image Area</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Shift</span> під час Crop</td>
+                        <td>Пропорційне збереження сторін (квадрат або вихідне співвідношення)</td>
+                        <td>Crop Modifier</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl</span> під час Crop</td>
+                        <td>Дзеркальне симетричне кадрування сторін від центру</td>
+                        <td>Crop Modifier</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Enter</span> / <span class="shortcut-badge">Esc</span></td>
+                        <td>Застосувати кадрування / Скасувати режим кадрування</td>
+                        <td>Crop Actions</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + O</span></td>
+                        <td>Відкрити файл (зображення, векторні макети, PDF-документи, відео)</td>
+                        <td>File &rarr; Open File...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + S</span></td>
+                        <td>Зберегти файл як... (<strong>Save File As...</strong>) у максимальній якості</td>
+                        <td>File &rarr; Save File As...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + S</span></td>
+                        <td>Швидкий прямий перезапис (<strong>Overwrite File</strong>) / збереження PDF у PNG</td>
+                        <td>File &rarr; Overwrite File</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + Shift + S</span></td>
+                        <td>Зберегти зображення у поточному екранному розмірі вікна</td>
+                        <td>File &rarr; Save Resizing...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + N</span></td>
+                        <td>Створити однотонний фон заданого розміру (FHD, 4K, A4 тощо)</td>
+                        <td>File &rarr; New Background...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + Z</span></td>
+                        <td>Скасувати останню зміну (глибина історії до 15 кроків <strong>Undo</strong>)</td>
+                        <td>Edit &rarr; Undo</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + C</span> / <span class="shortcut-badge">Ctrl + V</span></td>
+                        <td>Копіювати зображення в буфер обміну / Вставити з буфера обміну</td>
+                        <td>Edit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + B</span></td>
+                        <td>Налаштування яскравості та контрастності (Brightness / Contrast)</td>
+                        <td>Edit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + G</span> / <span class="shortcut-badge">Ctrl + R</span></td>
+                        <td>Відтінки сірого (Grayscale) / Розмиття зображення (Blur)</td>
+                        <td>Edit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">F6</span> / <span class="shortcut-badge">F7</span></td>
+                        <td>Малювання прямокутної маски / круглої маски з прозорістю</td>
+                        <td>Edit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">F11</span> / <span class="shortcut-badge">Esc</span></td>
+                        <td>Увімкнути повноекранний режим / Вийти з повноекранного режиму</td>
+                        <td>Preview</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + .</span> / <span class="shortcut-badge">Alt + ,</span></td>
+                        <td>Поворот на 90° за годинниковою / проти годинникової стрілки</td>
+                        <td>Transform</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + [</span> / <span class="shortcut-badge">Alt + ]</span></td>
+                        <td>Горизонтальне / вертикальне дзеркальне відбиття (Flip / Mirror)</td>
+                        <td>Transform</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">F5</span></td>
+                        <td>Графічний редактор системної змінної оточення <strong>PATH</strong></td>
+                        <td>Help &rarr; System PATH Editor</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + Shift + A</span></td>
+                        <td>Менеджер автозавантаження Windows (<strong>Autorun Manager</strong>)</td>
+                        <td>Help</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + Shift + S</span></td>
+                        <td>Звіт про систему (OS build, CPU, RAM, GPU VRAM, фізичні диски)</td>
+                        <td>Help &rarr; System Info</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Alt + Shift + L</span></td>
+                        <td>Апаратне налаштування яскравості підсвітки монітора (DDC/CI)</td>
+                        <td>Help &rarr; Monitor Brightness</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">F9</span> / <span class="shortcut-badge">Alt + F9</span></td>
+                        <td>Швидке читання каталогу / Закріпити вікно поверх усіх (Stay on Top)</td>
+                        <td>Help</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-badge">Ctrl + 0</span> ... <span class="shortcut-badge">Ctrl + 7</span></td>
+                        <td>Швидка зміна кольору фону підкладки робочого полотна</td>
+                        <td>BG Color</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Системні утиліти -->
+    <section id="system">
+        <div class="section-header">
+            <span class="section-icon">⚙️</span>
+            <h2 class="section-title">Вбудовані системні утиліти</h2>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💻</div>
+                    <div class="card-title">System Information (Alt+Shift+S)</div>
+                </div>
+                <div class="card-body">
+                    Збір системних відомостей без стороннього ПЗ:
+                    <ul>
+                        <li>Маркетингова версія та точний UBR збірки Windows з реєстру.</li>
+                        <li>Тактова частота процесора, кількість ядер, температура ACPI.</li>
+                        <li>Слоти RAM та обсяг виділеної відеопам'яті DXGI VRAM GPU.</li>
+                        <li>Список фізичних дисків та вільний дисковий простір.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card amber">
+                <div class="card-header">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-title">Autorun Manager (Alt+Shift+A)</div>
+                </div>
+                <div class="card-body">
+                    Повний контроль автозавантаження ОС:
+                    <ul>
+                        <li>Гілки реєстру HKCU, HKLM, Wow6432Node та папки Startup.</li>
+                        <li>Увімкнення, вимкнення, видалення записів автозапуску.</li>
+                        <li>Прямий перехід до теки програми та UAC-підвищення прав.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <div class="card-title">Апаратна яскравість (Alt+Shift+L)</div>
+                </div>
+                <div class="card-body">
+                    Керування підсвіткою монітора:
+                    <ul>
+                        <li>Пряме апаратне регулювання через шину DDC/CI монітора.</li>
+                        <li>WMI-сумісність для ноутбуків та моноблоків.</li>
+                        <li>Зручний повзунок без необхідності тягнутися до кнопок монітора.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card indigo">
+                <div class="card-header">
+                    <div class="card-icon">🔧</div>
+                    <div class="card-title">System PATH Editor (F5)</div>
+                </div>
+                <div class="card-body">
+                    Графічний редактор шляхів оточення:
+                    <ul>
+                        <li>Зручний список шляхів із підрахунком кількості записів.</li>
+                        <li>Додавання, редагування, зміна порядку пріоритету (Up/Down).</li>
+                        <li>Пряме відкриття вибраної теки у Провіднику Windows.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>Switlynka (Світлинка)</strong> &copy; 2026. Розробник: <strong>Петро Бган (Petro Bhan / AOSNEC)</strong>.</p>
+        <p style="margin-top: 6px;">Веб-сайт: <a href="http://aosnec.com" target="_blank">aosnec.com</a> | E-mail: <a href="mailto:bpiter@ukr.net">bpiter@ukr.net</a> | <a href="mailto:mail@aosnec.com">mail@aosnec.com</a> | GitHub: <a href="https://github.com/aosnec/Switlynka" target="_blank">github.com/aosnec/Switlynka</a></p>
+        <p style="margin-top: 6px; font-size: 0.8rem;">Розроблено на C++17 з використанням wxWidgets 3.2+, Poppler, Ghostscript, ImageMagick 7 та FFmpeg. For non-commercial use.</p>
+        <div style="margin-top: 12px;">
+            <div class="telegram-box">
+                <span>📱 Наш Telegram-канал:</span>
+                <img src="qrcodeTelegram_mini.png" alt="Telegram QR-код програми Switlynka">
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
